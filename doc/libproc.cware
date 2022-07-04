@@ -1,0 +1,32 @@
+.TH "libproc" "cware" "July 04, 2022" "" "C-Ware Manuals"
+.SH NAME
+libproc - handle processes in a portable way
+.SH SYNOPSIS
+
+.B "#include ""libproc.h"""
+.br
+.br
+
+
+.br
+/* the exit code from the abort(3) function */
+.br
+#define LIBPROC_ABORTED 134
+.br
+
+
+.br
+
+.br
+
+.br
+
+.br
+
+.br
+.SH DESCRIPTION
+libproc is a library that aims to allow cross platform handling of
+processes, and providing utility functions that can make dealing with
+processes easier.
+.SH SEE ALSO
+This project has no references.

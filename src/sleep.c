@@ -36,82 +36,54 @@
 */
 
 /*
- * @docgen: project
- * @brief: handle processes in a portable way
- * @name: libproc
+ * Implementations of the libproc_sleep(cware) function. This file contains
+ * two macros that are used to tell the sleep function which kind of behavior
+ * to take.
  *
- * @embed constant: LIBPROC_ABORTED
- *
- * @description
- * @libproc is a library that aims to allow cross platform handling of
- * @processes, and providing utility functions that can make dealing with
- * @processes easier.
- * @
- * @table
- * @sep: ;
- * @Manual;Description
- * @libproc_sleep(cware);microsecond sleeping
- * @table
- * @description
- *
- * @reference: cware(cware)
+ * LIBPROC_USE_SELECT       use select for microsecond sleeping
+ * LIBPROC_USE_USLEEP       use sleep and usleep for microsecond sleeping
 */
 
-#ifndef CWARE_LIBPROC_H
-#define CWARE_LIBPROC_H
 
-#include "liberror/liberror.h"
+/* ULTRIX uses time.h to store select for some reason */
+#if defined(ultrix) 
+#define LIBPROC_USE_SELECT
+#include <time.h>
+#endif
 
-/*
- * Represents the exit code returned by the operating system's native
- * libc when the abort(3) function is called. Operating systems such
- * as VAX ULTRIX, seem to intentionally have the function use an
- * illegal instruction, but even though this might not be a program
- * abortion in the typical sense, it is still the exit code from abort(3).
-*/
+/* OpenVMS has no support for select(2), and only has poll(2), but
+ * it has sleep(3) and usleep(3). */
+#if defined(VMS)
+#include <unistd.h>
+#define LIBPROC_USE_USLEEP
+#endif
 
-/*
- * @docgen: constant
- * @name: LIBPROC_ABORTED
- * @brief: the exit code from the abort(3) function
- * @value: 134
-*/
+/* These operating systems are normal and store select in
+ * sys/select.h. */
 #if defined(__linux__) || defined(__FreeBSD__) || defined(__NetBSD__) || \
     defined(__OpenBSD__) || defined(__sun)
-#define LIBPROC_ABORTED 134
+#define LIBPROC_USE_SELECT
+#include <sys/select.h>
 #endif
 
-#if defined(__ultrix__)
-#define LIBPROC_ABORTED 132
+#include "libproc.h"
+
+#define ONE_SEC_IN_USEC 1000000
+
+void libproc_sleep(int microseconds) {
+    struct timeval timer = {0, 0};
+
+    liberror_is_negative(libproc_sleep, microseconds);
+
+    timer.tv_usec = microseconds % ONE_SEC_IN_USEC;
+    timer.tv_sec = (microseconds - timer.tv_usec / ONE_SEC_IN_USEC);
+
+#if defined(LIBPROC_USE_SELECT)
+    select(0, NULL, NULL, NULL, &timer);
 #endif
 
-/*
- * @docgen: function
- * @brief: put the thread to sleep for a n microseconds
- * @name: libproc_sleep
- *
- * #include: libproc.h
- *
- * @description
- * @This function will allow the programmer to put the running thread or
- * @process to sleep for a given number of microseconds.
- * @description
- *
- * @error: microseconds is NULL
- *
- * @param microseconds: the number of microseconds to sleep
- * @type: int
-*/
-void libproc_sleep(int microseconds);
-
-
-
-
-
-
-
-
-
-
-
+#if defined(LIBPROC_USE_USLEEP)
+    sleep(timer.tv_sec);
+    usleep(timer.tv_usec);
 #endif
+}

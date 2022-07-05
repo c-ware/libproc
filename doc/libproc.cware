@@ -28,5 +28,17 @@ libproc - handle processes in a portable way
 libproc is a library that aims to allow cross platform handling of
 processes, and providing utility functions that can make dealing with
 processes easier.
+
+.TS
+tab(;);
+l l 
+_ _ 
+l l 
+.
+Manual;Description
+libproc_sleep(cware);microsecond sleeping
+.TE
+
 .SH SEE ALSO
-This project has no references.
+\fBcware\fR(cware)
+.br

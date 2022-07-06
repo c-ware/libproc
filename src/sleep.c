@@ -76,7 +76,7 @@ void libproc_sleep(int microseconds) {
     liberror_is_negative(libproc_sleep, microseconds);
 
     timer.tv_usec = microseconds % ONE_SEC_IN_USEC;
-    timer.tv_sec = (microseconds - timer.tv_usec / ONE_SEC_IN_USEC);
+    timer.tv_sec = (microseconds - timer.tv_usec) / ONE_SEC_IN_USEC;
 
 #if defined(LIBPROC_USE_SELECT)
     select(0, NULL, NULL, NULL, &timer);

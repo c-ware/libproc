@@ -1,0 +1,46 @@
+.TH "libproc_sleep" "cware" "July 05, 2022" "" "C-Ware Manuals"
+.SH NAME
+libproc_sleep - put the thread to sleep for a n microseconds
+.SH SYNOPSIS
+
+\fBvoid libproc_sleep(int \fImicroseconds\fB);
+.br
+
+\fR
+.SH DESCRIPTION
+This function will allow the programmer to put the running thread or
+process to sleep for a given number of microseconds.
+
+This function will display an error to the stderr, and abort the program if any of following conditions are met.
+.RS
+o    microseconds is NULL
+.br
+.RE
+
+\fImicroseconds\fR will be the number of microseconds to sleep
+.br
+.SH RETURN VALUE
+This function has no return value.
+.SH NOTES
+This function has no notes.
+.SH EXAMPLES
+#include <stdio.h>
+.br
+#include "libproc.h"
+.br
+
+.br
+int main(void) {
+.br
+    // Sleep for one second
+.br
+    libproc_sleep(LIBPROC_SLEEP_SECOND);
+.br
+
+.br
+    return 0;
+.br
+}
+.br
+.SH SEE ALSO
+This function has no references.

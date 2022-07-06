@@ -9,5 +9,10 @@ docgen project ./src/libproc.h --section cware              \
                                --date "`date +'%B %d, %Y'`" \
                                --include 'libproc.h'
 
+docgen functions ./src/libproc.h --section cware              \
+                                 --format manpage             \
+                                 --title 'C-Ware Manuals'     \
+                                 --date "`date +'%B %d, %Y'`"
+
 #makegen library unix --name libcstring \
 #                     --cflags '\-fpic' > Makefile

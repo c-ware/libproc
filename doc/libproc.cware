@@ -1,4 +1,4 @@
-.TH "libproc" "cware" "July 04, 2022" "" "C-Ware Manuals"
+.TH "libproc" "cware" "July 05, 2022" "" "C-Ware Manuals"
 .SH NAME
 libproc - handle processes in a portable way
 .SH SYNOPSIS
@@ -14,11 +14,23 @@ libproc - handle processes in a portable way
 #define LIBPROC_ABORTED 134
 .br
 
+/* one millisecond in microseconds */
+.br
+#define LIBPROC_SLEEP_MILLI 1000
+.br
+
+/* one second in microseconds */
+.br
+#define LIBPROC_SLEEP_SECOND 1000000
+.br
+
 
 .br
 
 .br
 
+\fBvoid  libproc_sleep(int \fImicroseconds\fB);
+.br\fR
 .br
 
 .br

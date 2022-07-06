@@ -41,6 +41,9 @@
  * @name: libproc
  *
  * @embed constant: LIBPROC_ABORTED
+ * @embed constant: LIBPROC_SLEEP_MILLI
+ * @embed constant: LIBPROC_SLEEP_SECOND
+ * @embed function: libproc_sleep
  *
  * @description
  * @libproc is a library that aims to allow cross platform handling of
@@ -86,6 +89,27 @@
 #endif
 
 /*
+ * Some useful constants for dealing with sleeping in pre-determined
+ * intervals based off microseconds.
+*/
+
+/*
+ * @docgen: constant
+ * @name: LIBPROC_SLEEP_MILLI
+ * @brief: one millisecond in microseconds
+ * @value: 1000
+*/
+#define LIBPROC_SLEEP_MILLI     (1000)
+
+/*
+ * @docgen: constant
+ * @name: LIBPROC_SLEEP_SECOND
+ * @brief: one second in microseconds
+ * @value: 1000000
+*/
+#define LIBPROC_SLEEP_SECOND    (LIBPROC_SLEEP_MILLI * 1000)
+
+/*
  * @docgen: function
  * @brief: put the thread to sleep for a n microseconds
  * @name: libproc_sleep
@@ -96,6 +120,18 @@
  * @This function will allow the programmer to put the running thread or
  * @process to sleep for a given number of microseconds.
  * @description
+ *
+ * @example
+ * @#include <stdio.h>
+ * @#include "libproc.h"
+ * @
+ * @int main(void) {
+ * @    // Sleep for one second
+ * @    libproc_sleep(LIBPROC_SLEEP_SECOND);
+ * @
+ * @    return 0;
+ * @}
+ * @example
  *
  * @error: microseconds is NULL
  *

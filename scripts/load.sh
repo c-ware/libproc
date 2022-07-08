@@ -14,5 +14,8 @@ docgen functions ./src/libproc.h --section cware              \
                                  --title 'C-Ware Manuals'     \
                                  --date "`date +'%B %d, %Y'`"
 
-#makegen library unix --name libcstring \
-#                     --cflags '\-fpic' > Makefile
+makegen library unix --name libproc \
+                     --cflags '\-fpic' > Makefile
+
+makegen library unix --name libproc \
+                     --cflags '\-fpic \-Wall -Wextra -Wpedantic -Wshadow -ansi -g -Wno-unused-parameter -Wno-type-limits -Wno-sign-compare' > Makefile.dev

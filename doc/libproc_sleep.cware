@@ -1,4 +1,4 @@
-.TH "libproc_sleep" "cware" "July 05, 2022" "" "C-Ware Manuals"
+.TH "libproc_sleep" "cware" "July 07, 2022" "" "C-Ware Manuals"
 .SH NAME
 libproc_sleep - put the thread to sleep for a n microseconds
 .SH SYNOPSIS

@@ -1,4 +1,4 @@
-.TH "libproc" "cware" "July 05, 2022" "" "C-Ware Manuals"
+.TH "libproc" "cware" "July 07, 2022" "" "C-Ware Manuals"
 .SH NAME
 libproc - handle processes in a portable way
 .SH SYNOPSIS

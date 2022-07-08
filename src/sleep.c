@@ -54,8 +54,15 @@
 /* OpenVMS has no support for select(2), and only has poll(2), but
  * it has sleep(3) and usleep(3). */
 #if defined(VMS)
-#include <unistd.h>
 #define LIBPROC_USE_USLEEP
+#include <unistd.h>
+#endif
+
+/* Windows select can only be used for sockets, but that does
+ * not matter here. */
+#if defined(_WIN32)
+#define LIBPROC_USE_SELECT
+#include <winsock2.h>
 #endif
 
 /* These operating systems are normal and store select in
